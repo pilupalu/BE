@@ -9,52 +9,34 @@ import java.io.Serializable;
 import java.util.List;
 
 class SessionID implements Serializable{
-    private int activityId;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_user", referencedColumnName = "id_user")
+    private User user;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "activityId", referencedColumnName = "id_activity")
+    private Activity activity;
     private String date;
 
-    private int userId;
-
-    public SessionID(int activityId, int userId, String date){
-        this.activityId = activityId;
+    public SessionID(User user, Activity activity, String date) {
+        this.user = user;
+        this.activity = activity;
         this.date = date;
-        this.userId = userId;
     }
 }
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@IdClass(SessionID.class)
 public class Session {
 
-    @Id
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_user")
-    private User userId;
-
-    @Id
-    @Column(name = "session_activity_id")
-    private int session_activity_id;
-
-    @ManyToMany
-    @JoinTable(
-            name = "session_actity",
-            joinColumns = @JoinColumn(name = "session_activity_id"),
-            inverseJoinColumns = @JoinColumn(name = "id_activity")
-    )
-    List<Activity> activityList;
-
-    @Id
-    @Column(name = "date")
-    private String date;
+    @EmbeddedId
+    private SessionID sessionID;
 
     @Column(name = "grade")
-    private int session_grade;
+    private int grade;
 
     @Column(name = "comment")
-    private String session_comments;
-
-
+    private String comments;
 
 }

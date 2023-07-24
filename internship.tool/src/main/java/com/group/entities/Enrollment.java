@@ -6,15 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.List;
-class EnrollmentsId implements Serializable {
+
+class EnrollmentId implements Serializable {
     private int teamId;
 
     private int activityId;
 
     // default constructor
 
-    public EnrollmentsId(int id_team, int id_activity) {
+    public EnrollmentId(int id_team, int id_activity) {
         this.teamId = id_team;
         this.activityId = id_activity;
     }
@@ -25,19 +25,16 @@ class EnrollmentsId implements Serializable {
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@IdClass(EnrollmentsId.class)
-public class Enrollments {
+@IdClass(EnrollmentId.class)
+public class Enrollment {
     @Id
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_activity")
+    @JoinColumn(name = "id_team")
     private Team teamId;
 
     @Id
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_activity")
     private Activity activityId;
-
-
-
 
 }

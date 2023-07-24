@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Team {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_team")
     private int teamID;
 
@@ -18,6 +19,6 @@ public class Team {
     private String teamName;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_leader", referencedColumnName = "ID_USER", insertable = false, updatable = false)
+    @JoinColumn(name = "id_leader")
     private User leader;
 }

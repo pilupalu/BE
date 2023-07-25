@@ -7,25 +7,11 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-class EnrollmentId implements Serializable {
-    private int teamId;
-
-    private int activityId;
-
-    // default constructor
-
-    public EnrollmentId(int id_team, int id_activity) {
-        this.teamId = id_team;
-        this.activityId = id_activity;
-    }
-
-    // equals() and hashCode()
-}
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@IdClass(EnrollmentId.class)
+@IdClass(Enrollment.EnrollmentId.class)
 public class Enrollment {
     @Id
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -37,4 +23,18 @@ public class Enrollment {
     @JoinColumn(name = "id_activity")
     private Activity activityId;
 
+    public static class EnrollmentId implements Serializable {
+        private int teamId;
+
+        private int activityId;
+
+        // default constructor
+
+        public EnrollmentId(int id_team, int id_activity) {
+            this.teamId = id_team;
+            this.activityId = id_activity;
+        }
+
+        // equals() and hashCode()
+    }
 }

@@ -2,8 +2,11 @@ package com.group.controllers;
 
 import com.group.entities.User;
 import com.group.repositories.UserRepository;
+import com.group.services.UserService;
 import jakarta.persistence.Table;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,16 +16,15 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
-    @PostMapping("/saveUser")
-    public String saveUser(@RequestBody User user){
-        userRepository.save(user);
-        return "User saved...";
+    @PostMapping(value = "/newUser")
+    public ResponseEntity<User> addUser(@RequestBody User user){
+        User result = userService.addUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
-
-    @GetMapping("/getAllUsers")
-    public List<User> getAll(){
-        return userRepository.findAll();
+    @GetMapping(value = "/allUsers")
+    public List<User> getAllUsers(){
+        return userService.getAllStudents();
     }
 }

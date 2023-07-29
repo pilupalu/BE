@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_team")
+    @Column(name = "id")
     private int teamID;
 
-    @Column(name = "team_name")
+    @Column(name = "name")
     private String teamName;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_leader")
+    @JoinColumn(name = "id_leader", referencedColumnName = "id")
     private User leader;
 }

@@ -15,12 +15,12 @@ import java.io.Serializable;
 public class Enrollment {
     @Id
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_team")
+    @JoinColumn(name = "id_team", referencedColumnName = "id")
     private Team teamId;
 
     @Id
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_activity")
+    @JoinColumn(name = "id_activity", referencedColumnName = "id")
     private Activity activityId;
 
     public static class EnrollmentId implements Serializable {

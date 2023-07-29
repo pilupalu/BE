@@ -23,10 +23,10 @@ public class Session {
     public static class SessionID implements Serializable {
 
         @ManyToOne(cascade = CascadeType.PERSIST)
-        @JoinColumn(name = "id_user", referencedColumnName = "id_user")
+        @JoinColumn(name = "id_user", referencedColumnName = "id")
         private User user;
         @ManyToOne(cascade = CascadeType.PERSIST)
-        @JoinColumn(name = "activityId", referencedColumnName = "id_activity")
+        @JoinColumn(name = "activityId", referencedColumnName = "id")
         private Activity activity;
         @Column(name = "date")
         private String date;

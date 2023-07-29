@@ -13,9 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 public class Activity {
     @Id
-    @Column(name = "id_activity")
+    @Column(name = "id")
     private int id;
 
-    @Column(name = "activity_name")
+    @Column(name = "name")
     private String activityName;
 }

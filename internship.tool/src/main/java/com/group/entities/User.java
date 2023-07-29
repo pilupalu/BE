@@ -14,13 +14,13 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_user")
+    @Column(name = "id")
     private int id;
 
-    @Column(name = "USERNAME")
+    @Column(name = "username")
     private String username;
 
-    @Column(name = "EMAIL")
+    @Column(name = "email")
     private String email;
 
 
@@ -29,6 +29,6 @@ public class User {
     private Role role;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_team")
+    @JoinColumn(name = "id_team", referencedColumnName = "id")
     private Team team;
 }

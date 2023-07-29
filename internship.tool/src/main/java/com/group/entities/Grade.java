@@ -29,6 +29,7 @@ public class Grade {
     @Embeddable
     public static class GradeID implements Serializable {
         private Session.SessionID sessionID;
+        @Column(name = "id_mentor")
         private int mentorID;
     }
 }

@@ -1,5 +1,6 @@
 package com.group.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "USERS", schema = "public")
+@Table(name = "Users")
 public class User {
 
     @Id
@@ -30,5 +31,6 @@ public class User {
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_team", referencedColumnName = "id")
+    @JsonIgnoreProperties("leader")
     private Team team;
 }

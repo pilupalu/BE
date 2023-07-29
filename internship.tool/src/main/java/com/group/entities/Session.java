@@ -26,7 +26,7 @@ public class Session {
         @JoinColumn(name = "id_user", referencedColumnName = "id")
         private User user;
         @ManyToOne(cascade = CascadeType.PERSIST)
-        @JoinColumn(name = "activityId", referencedColumnName = "id")
+        @JoinColumn(name = "id_activity", referencedColumnName = "id")
         private Activity activity;
         @Column(name = "date")
         private String date;

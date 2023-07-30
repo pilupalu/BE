@@ -24,4 +24,8 @@ public class ActivityService {
         Activity savedActivity = activityRepository.save(activity);
         return  savedActivity;
     }
+
+    public Activity getActivityById(Integer activityId) {
+        return activityRepository.findById(activityId).orElse(null);
+    }
 }

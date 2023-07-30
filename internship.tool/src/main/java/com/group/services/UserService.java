@@ -55,4 +55,8 @@ public class UserService {
 
         return userRepository.findAll(spec);
     }
+
+    public User getUserById(Integer userId) {
+        return userRepository.findById(userId).orElse(null);
+    }
 }

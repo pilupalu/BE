@@ -21,6 +21,18 @@ public class SessionController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Session>> getSessionsForUserAndActivity(
+            @RequestParam("userId") Integer userId,
+            @RequestParam("activityId") Integer activityId
+    ) {
+        List<Session> sessions = sessionService.getSessionsByUserAndActivity(userId, activityId);
+        if (sessions.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(sessions);
+    }
+
     @GetMapping(value = "/allSession")
     public List<Session> getAllSessions(){
         return sessionService.getAllSessions();

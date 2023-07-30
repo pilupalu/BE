@@ -1,6 +1,8 @@
 package com.group.controllers;
 
+import com.group.entities.Activity;
 import com.group.entities.Enrollment;
+import com.group.entities.Team;
 import com.group.services.EnrollmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ public class EnrollmentController {
         Enrollment result = enrollmentService.addEnrollment(enrollment);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
+
     @GetMapping(value = "/allEnrollment")
     public List<Enrollment> getAllEnrollments(){
         return enrollmentService.getAllEnrollments();

@@ -40,7 +40,6 @@ public class GradeService {
     }
 
     public List<Grade> getGradesByUserActivityAndDate(int userId, int activityId, String date) {
-        // Assuming you have methods to fetch the user and activity by their IDs
         User user = userService.getUserById(userId);
         Activity activity = activityService.getActivityById(activityId);
 
@@ -54,5 +53,16 @@ public class GradeService {
     public Grade addGrade(Grade grade){
         Grade savedGrade = gradeRepository.save(grade);
         return savedGrade;
+    }
+
+    public List<Grade> getGradesByUserAndActivity(int userId, int activityId) {
+        User user = userService.getUserById(userId);
+        Activity activity = activityService.getActivityById(activityId);
+
+        if (user == null || activity == null) {
+            return Collections.emptyList();
+        }
+
+        return gradeRepository.findByUserIDAndActivityID(user, activity);
     }
 }

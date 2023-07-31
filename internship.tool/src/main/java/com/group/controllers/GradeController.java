@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/grade")
@@ -25,9 +26,15 @@ public class GradeController {
     public ResponseEntity<List<Grade>> getGradesForSession(
             @RequestParam("userId") int userId,
             @RequestParam("activityId") int activityId,
-            @RequestParam("date") String date
+            @RequestParam("date") Optional<String> date
     ) {
-        List<Grade> grades = gradeService.getGradesByUserActivityAndDate(userId, activityId, date);
+        List<Grade> grades;
+        if (date.isPresent()) {
+            grades = gradeService.getGradesByUserActivityAndDate(userId, activityId, date.get());
+        } else {
+            grades = gradeService.getGradesByUserAndActivity(userId, activityId);
+        }
+
         if (grades.isEmpty()) {
             return ResponseEntity.notFound().build();
         }

@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface GradeRepository extends JpaRepository<Grade, Grade.GradeID> {
     List<Grade> findByUserIDAndActivityIDAndDate(User user, Activity activity, String date);
+
+    List<Grade> findByUserIDAndActivityID(User user, Activity activity);
 }

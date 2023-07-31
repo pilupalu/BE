@@ -25,10 +25,9 @@ public class UserService {
         else users = userRepository.findAll();
         return users;
     }
-    
+
     public User addUser(User user) {
-        User savedUser = userRepository.save(user);
-        return savedUser;
+        return userRepository.save(user);
     }
 
     public List<User> getUsersByFields(Integer id, String username, String email, Role role, Integer teamId) {

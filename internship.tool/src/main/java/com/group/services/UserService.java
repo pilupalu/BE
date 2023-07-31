@@ -2,8 +2,10 @@ package com.group.services;
 
 import com.group.entities.Role;
 import com.group.entities.User;
+import com.group.exceptions.UserNotFound;
 import com.group.repositories.UserRepository;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,18 +25,19 @@ public class UserService {
         else users = userRepository.findAll();
         return users;
     }
-
-    public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
+    
     public User addUser(User user) {
         User savedUser = userRepository.save(user);
         return savedUser;
     }
 
-    public List<User> getUsersByFields(String username, String email, Role role, Integer teamId) {
+    public List<User> getUsersByFields(Integer id, String username, String email, Role role, Integer teamId) {
         // Create a specification to dynamically filter the users
         Specification<User> spec = Specification.where(null);
+
+        if(id != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("id"), id));
+        }
 
         if (username != null) {
             spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("username"), username));
@@ -52,11 +55,17 @@ public class UserService {
             spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("team").get("id"), teamId));
         }
 
+        List<User> users = userRepository.findAll(spec);
+
+        if (users.isEmpty()) {
+            throw new UserNotFound(HttpStatus.NOT_FOUND);
+        }
+
         return userRepository.findAll(spec);
     }
 
     public User getUserById(Integer userId) {
-        return userRepository.findById(userId).orElse(null);
+        return userRepository.findById(userId).orElseThrow(() -> new UserNotFound(HttpStatus.NOT_FOUND));
     }
 /*    public List<Integer> getUserGrades(Integer userId) {
         return userRepository.findGradesById(userId);

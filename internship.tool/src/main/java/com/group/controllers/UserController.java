@@ -2,7 +2,7 @@ package com.group.controllers;
 
 import com.group.entities.Role;
 import com.group.entities.User;
-import com.group.repositories.UserRepository;
+
 import com.group.services.UserService;
 import jakarta.persistence.Table;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,23 +30,14 @@ public class UserController {
         return userService.getAllStudents(sorted);
     }
 
-/*    @GetMapping(value = "/{username}")
-    public ResponseEntity<User> getUserByUsername(@PathVariable String username){
-        User user = userService.getUserByUsername(username);
-        if (user != null) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }*/
-
     @GetMapping
-    public ResponseEntity<List<User>> getUsersByFields(@RequestParam(required = false) String username,
+    public ResponseEntity<List<User>> getUsersByFields(@RequestParam(required = false) Integer id,
+                                                       @RequestParam(required = false) String username,
                                                        @RequestParam(required = false) String email,
                                                        @RequestParam(required = false) Role role,
                                                        @RequestParam(required = false) Integer teamId) {
 
-        List<User> users = userService.getUsersByFields(username, email, role, teamId);
+        List<User> users = userService.getUsersByFields(id, username, email, role, teamId);
 
         if (users.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -55,14 +46,4 @@ public class UserController {
         }
     }
 
-/*    @GetMapping("/{userId}/grades")
-    public ResponseEntity<List<Integer>> getUserGrades(@PathVariable Integer userId) {
-        List<Integer> grades = userService.getUserGrades(userId);
-
-        if (grades.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(grades);
-    }*/
 }

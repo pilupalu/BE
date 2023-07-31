@@ -33,7 +33,7 @@ public class UserService {
     }
 
     public List<User> getUsersByFields(String username, String email, Role role, Integer teamId) {
-        // Create a specification to dynamically filter the users
+
         Specification<User> spec = Specification.where(null);
 
         if (username != null) {
@@ -58,7 +58,4 @@ public class UserService {
     public User getUserById(Integer userId) {
         return userRepository.findById(userId).orElse(null);
     }
-/*    public List<Integer> getUserGrades(Integer userId) {
-        return userRepository.findGradesById(userId);
-    }*/
 }

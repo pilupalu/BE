@@ -3,7 +3,6 @@ package com.group.services;
 import com.group.entities.Role;
 import com.group.entities.User;
 import com.group.repositories.UserRepository;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -59,4 +58,7 @@ public class UserService {
     public User getUserById(Integer userId) {
         return userRepository.findById(userId).orElse(null);
     }
+/*    public List<Integer> getUserGrades(Integer userId) {
+        return userRepository.findGradesById(userId);
+    }*/
 }

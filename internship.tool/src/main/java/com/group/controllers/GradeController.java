@@ -21,6 +21,19 @@ public class GradeController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Grade>> getGradesForSession(
+            @RequestParam("userId") int userId,
+            @RequestParam("activityId") int activityId,
+            @RequestParam("date") String date
+    ) {
+        List<Grade> grades = gradeService.getGradesByUserActivityAndDate(userId, activityId, date);
+        if (grades.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(grades);
+    }
+
     @GetMapping(value = "/allGrade")
     public List<Grade> getAllGrades(){
         return gradeService.getAllGrades();

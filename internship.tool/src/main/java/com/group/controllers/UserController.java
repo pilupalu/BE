@@ -54,4 +54,15 @@ public class UserController {
             return ResponseEntity.ok(users);
         }
     }
+
+/*    @GetMapping("/{userId}/grades")
+    public ResponseEntity<List<Integer>> getUserGrades(@PathVariable Integer userId) {
+        List<Integer> grades = userService.getUserGrades(userId);
+
+        if (grades.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(grades);
+    }*/
 }

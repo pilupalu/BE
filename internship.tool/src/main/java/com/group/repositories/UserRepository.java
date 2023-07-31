@@ -14,4 +14,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
         List<User> findAllByOrderByUsernameAsc();
 
         List<User> findAll(Specification<User> spec);
+
+/*    List<Integer> findGradesById(Integer userId);*/
 }

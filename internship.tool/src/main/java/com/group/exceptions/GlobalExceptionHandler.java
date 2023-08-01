@@ -17,8 +17,27 @@ public class GlobalExceptionHandler {
     //de fiecare data cand in aplicatie apare o exceptie de tip CustomException
     //se va executa metoda handleConflictCustomException care practic returneaza catre frontend
     //un obiect de tipul ExceptionResponseDto
-    @ExceptionHandler(CustomException.class)
-    public ResponseEntity<ExceptionResponseDto> handleConflictCustomException(CustomException exception){
+    @ExceptionHandler(UserNotFound.class)
+    public ResponseEntity<ExceptionResponseDto> handleConflictUserNotFound(UserNotFound exception) {
+        ExceptionResponseDto responseDto = new ExceptionResponseDto(
+                exception.getHttpStatus().value(),
+                exception.getHttpStatus().getReasonPhrase(),
+                exception.getMessage()
+        );
+
+        return ResponseEntity.status(exception.getHttpStatus()).body(responseDto);
+    }
+    @ExceptionHandler(ActivityNotFoundException.class)
+    public  ResponseEntity<ExceptionResponseDto> handleConflicNoActivityFoundException(ActivityNotFoundException exception){
+        ExceptionResponseDto responseDto = new ExceptionResponseDto(
+                exception.getHttpStatus().value(),
+                exception.getHttpStatus().getReasonPhrase(),
+                exception.getMessage()
+        );
+        return ResponseEntity.ok().body(responseDto);
+    }
+    @ExceptionHandler(TeamNotFoundInActivity.class)
+    public ResponseEntity<ExceptionResponseDto> handleConflictNoTeamFoundByActivityException(TeamNotFoundInActivity exception){
 
         ExceptionResponseDto responseDto = new ExceptionResponseDto(
                 exception.getHttpStatus().value(),
@@ -29,16 +48,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.ok().body(responseDto);
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ExceptionResponseDto> handleConflictRuntimeException(RuntimeException exception){
 
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ExceptionResponseDto> handleConflictRuntimeException(RuntimeException exception) {
         ExceptionResponseDto responseDto = new ExceptionResponseDto(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "Something went wrong",
                 "There is an internal server issue"
         );
 
-        return ResponseEntity.ok().body(responseDto);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseDto);
     }
 
 }

@@ -45,4 +45,5 @@ public class TeamController {
     public List<Team> getAllTeams() {
         return  teamService.getAllTeams();
     }
+
  }

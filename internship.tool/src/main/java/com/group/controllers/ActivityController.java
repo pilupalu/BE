@@ -1,6 +1,7 @@
 package com.group.controllers;
 
 import com.group.entities.Activity;
+import com.group.entities.Team;
 import com.group.services.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,4 +26,6 @@ public class ActivityController {
     public List<Activity> getAllActivity(){
         return activityService.getAllActivities();
     }
+
+
 }

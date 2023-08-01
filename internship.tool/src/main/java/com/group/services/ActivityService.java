@@ -1,9 +1,13 @@
 package com.group.services;
 
 import com.group.entities.Activity;
+import com.group.entities.Enrollment;
+import com.group.entities.Team;
+import com.group.exceptions.TeamNotFoundInActivity;
 import com.group.repositories.ActivityRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,4 +32,5 @@ public class ActivityService {
     public Activity getActivityById(Integer activityId) {
         return activityRepository.findById(activityId).orElse(null);
     }
+
 }

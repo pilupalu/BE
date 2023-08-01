@@ -16,7 +16,7 @@ import java.util.List;
 public class TeamController {
     @Autowired
     private TeamService teamService;
-    private EnrollmentService enrollmentService;
+    private final EnrollmentService enrollmentService;
 
     public TeamController(TeamService teamService, EnrollmentService enrollmentService) {
         this.teamService = teamService;

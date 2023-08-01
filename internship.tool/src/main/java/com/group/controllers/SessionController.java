@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/sessions")
@@ -77,5 +78,15 @@ public class SessionController {
         }
 
         return new ResponseEntity<>("Sessions created successfully", HttpStatus.OK);
+    }
+
+    @GetMapping("/activities")
+    public ResponseEntity<Map<String, Session>> getSessionsByDate(@RequestParam("date") String date) {
+        try {
+            Map<String, Session> sessionsByActivity = sessionService.getSessionsByDate(date);
+            return new ResponseEntity<>(sessionsByActivity, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

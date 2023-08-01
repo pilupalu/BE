@@ -52,4 +52,8 @@ public class EnrollmentService {
         }
         return teams;
     }
+
+    public List<Enrollment> getEnrollmentsByActivity(Activity activity) {
+        return enrollmentRepository.findByActivityId(activity);
+    }
 }

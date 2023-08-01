@@ -7,7 +7,9 @@ import com.group.repositories.SessionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SessionService {
@@ -43,5 +45,17 @@ public class SessionService {
         }
 
         return sessionRepository.findByUserAndActivity(user, activity);
+    }
+
+    public Map<String, Session> getSessionsByDate(String date) {
+        List<Session> sessions = sessionRepository.findSessionsByDate(date);
+        Map<String, Session> sessionsByActivity = new HashMap<>();
+
+        for (Session session : sessions) {
+            Activity activity = session.getActivity();
+            sessionsByActivity.put(activity.getName(), session);
+        }
+
+        return sessionsByActivity;
     }
 }

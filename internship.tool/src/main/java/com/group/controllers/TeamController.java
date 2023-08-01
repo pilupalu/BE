@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/team")
+@RequestMapping("/teams")
 public class TeamController {
     @Autowired
     private TeamService teamService;
@@ -23,7 +23,7 @@ public class TeamController {
         this.enrollmentService = enrollmentService;
     }
 
-    @PostMapping(value = "/newTeam")
+    @PostMapping(value = "/new")
     public ResponseEntity<Team> addTeam(@RequestBody Team team) {
         Team result = teamService.addTeam(team);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
@@ -31,7 +31,6 @@ public class TeamController {
 
     @GetMapping("/{teamId}/activities")
     public ResponseEntity<List<Activity>> getActivitiesByTeam(@PathVariable Integer teamId) {
-        // Assuming you have a method to fetch the team from the teamId
         Team team = teamService.getTeamById(teamId);
         if (team == null) {
             return ResponseEntity.notFound().build();
@@ -41,9 +40,8 @@ public class TeamController {
         return ResponseEntity.ok(activities);
     }
 
-    @GetMapping(value = "/allTeams")
+    @GetMapping(value = "/all")
     public List<Team> getAllTeams() {
         return  teamService.getAllTeams();
     }
-
  }

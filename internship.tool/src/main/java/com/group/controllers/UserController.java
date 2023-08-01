@@ -15,17 +15,17 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping(value = "/newUser")
+    @PostMapping(value = "/new")
     public ResponseEntity<User> addUser(@RequestBody User user){
         User result = userService.addUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
-    @GetMapping(value = "/allUsers")
+    @GetMapping(value = "/all")
     public List<User> getAllUsers(@RequestParam(defaultValue = "false", required = false) boolean sorted){
         return userService.getAllStudents(sorted);
     }

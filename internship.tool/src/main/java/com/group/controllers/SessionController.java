@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/session")
+@RequestMapping("/sessions")
 public class SessionController {
     @Autowired
     private SessionService sessionService;
@@ -28,7 +28,7 @@ public class SessionController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/newSession")
+    @PostMapping(value = "/new")
     public ResponseEntity<Session> addSession(@RequestBody Session session){
         Session result = sessionService.addSession(session);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
@@ -46,7 +46,7 @@ public class SessionController {
         return ResponseEntity.ok(sessions);
     }
 
-    @GetMapping(value = "/allSession")
+    @GetMapping(value = "/all")
     public List<Session> getAllSessions(){
         return sessionService.getAllSessions();
     }
@@ -54,16 +54,13 @@ public class SessionController {
     @PostMapping("/create-sessions")
     public ResponseEntity<String> createSessionsForActivityAndDate(@RequestParam("activityId") int activityId,
                                                                    @RequestParam("date") String date) {
-        // Get the activity by its ID
         Activity activity = activityService.getActivityById(activityId);
         if (activity == null) {
             return new ResponseEntity<>("Activity not found", HttpStatus.NOT_FOUND);
         }
 
-        // Get all enrollments for the given activity
         List<Enrollment> enrollments = enrollmentService.getEnrollmentsByActivity(activity);
 
-        // Create a session for each student from all teams enrolled in the activity
         for (Enrollment enrollment : enrollments) {
             Team team = enrollment.getTeamId();
             List<User> students = userService.getUsersByFields(null, null, null, null, team.getTeamID());
@@ -75,7 +72,6 @@ public class SessionController {
                 session.setDate(date);
                 session.setAttended(false); // Defaulting to false, as attendance is not specified at creation
 
-                // Save the session in the database
                 sessionService.addSession(session);
             }
         }

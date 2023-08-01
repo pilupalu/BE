@@ -11,21 +11,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/activity")
+@RequestMapping("/activities")
 public class ActivityController {
     @Autowired
     private ActivityService activityService;
 
-    @PostMapping(value = "/newActivity")
+    @PostMapping(value = "/new")
     public ResponseEntity<Activity> addActivity(@RequestBody Activity activity){
         Activity result = activityService.addActivity(activity);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
-    @GetMapping(value = "/allActivity")
+    @GetMapping(value = "/all")
     public List<Activity> getAllActivity(){
         return activityService.getAllActivities();
     }
-
-
 }

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/enrollment")
+@RequestMapping("/enrollments")
 public class EnrollmentController {
     @Autowired
     private EnrollmentService enrollmentService;
@@ -27,13 +27,13 @@ public class EnrollmentController {
     }
 
 
-    @PostMapping(value = "/newEnrollment")
+    @PostMapping(value = "/new")
     public ResponseEntity<Enrollment> addEnrollment(@RequestBody Enrollment enrollment) {
         Enrollment result = enrollmentService.addEnrollment(enrollment);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
-    @GetMapping(value = "/allEnrollment")
+    @GetMapping(value = "/all")
     public List<Enrollment> getAllEnrollments(){
         return enrollmentService.getAllEnrollments();
     }

@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/grade")
+@RequestMapping("/grades")
 public class GradeController {
     @Autowired
     private GradeService gradeService;
 
-    @PostMapping(value = "/newGrade")
+    @PostMapping(value = "/new")
     public ResponseEntity<Grade> addGrade(@RequestBody Grade grade) {
         Grade result = gradeService.addGrade(grade);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
@@ -41,7 +41,7 @@ public class GradeController {
         return ResponseEntity.ok(grades);
     }
 
-    @GetMapping(value = "/allGrade")
+    @GetMapping(value = "/all")
     public List<Grade> getAllGrades(){
         return gradeService.getAllGrades();
     }

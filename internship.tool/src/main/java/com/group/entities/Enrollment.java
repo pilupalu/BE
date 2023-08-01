@@ -1,5 +1,6 @@
 package com.group.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,26 +18,26 @@ public class Enrollment {
     @Id
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_team", referencedColumnName = "id")
-    private Team teamId;
+    @JsonIgnoreProperties({"id_leader","team_name"})
+    private Team id_team;
 
     @Id
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_activity", referencedColumnName = "id")
-    private Activity activityId;
+    @JsonIgnoreProperties({"name"})
+    private Activity id_activity;
 
     public static class EnrollmentId implements Serializable {
-        private int teamId;
+        private int id_team;
 
-        private int activityId;
-
-        // default constructor
+        private int id_activity;
 
         public EnrollmentId() {
         }
 
-        public EnrollmentId(int teamId, int activityId) {
-            this.teamId = teamId;
-            this.activityId = activityId;
+        public EnrollmentId(int id_team, int id_activity) {
+            this.id_team = id_team;
+            this.id_activity = id_activity;
         }
 
         @Override
@@ -44,14 +45,12 @@ public class Enrollment {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             EnrollmentId that = (EnrollmentId) o;
-            return teamId == that.teamId && activityId == that.activityId;
+            return id_team == that.id_team && id_activity == that.id_activity;
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(teamId, activityId);
+            return Objects.hash(id_team, id_activity);
         }
-
-// equals() and hashCode()
     }
 }

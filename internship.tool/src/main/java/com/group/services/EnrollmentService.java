@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EnrollmentService {
@@ -30,7 +29,7 @@ public class EnrollmentService {
         List<Enrollment> enrollments = enrollmentRepository.findByTeamId(team);
         List<Activity> activities = new ArrayList<>();
         for (Enrollment enrollment : enrollments) {
-            activities.add(enrollment.getActivityId());
+            activities.add(enrollment.getId_activity());
         }
         return activities;
     }
@@ -48,7 +47,7 @@ public class EnrollmentService {
 
         List<Team> teams = new ArrayList<>();
         for (Enrollment enrollment : enrollments) {
-            teams.add(enrollment.getTeamId());
+            teams.add(enrollment.getId_team());
         }
         return teams;
     }

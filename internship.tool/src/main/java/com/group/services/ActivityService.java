@@ -32,5 +32,4 @@ public class ActivityService {
     public Activity getActivityById(Integer activityId) {
         return activityRepository.findById(activityId).orElse(null);
     }
-
 }

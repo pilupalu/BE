@@ -44,4 +44,14 @@ public class UserController {
         }
     }
 
+    @GetMapping("/withoutTeam")
+    public ResponseEntity<List<User>> getUsersWithoutTeam() {
+        List<User> users = userService.getUsersWithoutTeam();
+        return ResponseEntity.ok(users);
+    }
+    @PutMapping("/{userId}")
+    public ResponseEntity<User> putUserTeam(@PathVariable int userId, @RequestParam int teamId) {
+        User user = userService.putUserTeam(userId, teamId);
+        return ResponseEntity.ok(user);
+    }
 }

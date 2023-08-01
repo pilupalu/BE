@@ -36,6 +36,16 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.ok().body(responseDto);
     }
+    @ExceptionHandler(TeamNotFoundException.class)
+    public ResponseEntity<ExceptionResponseDto> handleConflictTeamNotFoundException(TeamNotFoundException exception){
+        ExceptionResponseDto responseDto = new ExceptionResponseDto(
+                exception.getHttpStatus().value(),
+                exception.getHttpStatus().getReasonPhrase(),
+                exception.getMessage()
+        );
+        return ResponseEntity.ok().body(responseDto);
+    }
+
     @ExceptionHandler(TeamNotFoundInActivity.class)
     public ResponseEntity<ExceptionResponseDto> handleConflictNoTeamFoundByActivityException(TeamNotFoundInActivity exception){
 
@@ -48,6 +58,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.ok().body(responseDto);
     }
 
+    @ExceptionHandler(UserAlreadyAssignedToTeamException.class)
+    public ResponseEntity<ExceptionResponseDto> handleUserAlreadyAssignedToTeamException(UserAlreadyAssignedToTeamException exception) {
+        ExceptionResponseDto responseDto = new ExceptionResponseDto(
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                exception.getMessage()
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
+    }
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ExceptionResponseDto> handleConflictRuntimeException(RuntimeException exception) {

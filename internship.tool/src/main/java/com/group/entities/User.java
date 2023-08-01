@@ -19,7 +19,7 @@ public class User {
     private int id;
 
     @Column(name = "username")
-    private String username;
+    private String name;
 
     @Column(name = "email")
     private String email;
@@ -32,5 +32,5 @@ public class User {
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_team", referencedColumnName = "id")
     @JsonIgnoreProperties("leader")
-    private Team team;
+    private Team id_team;
 }

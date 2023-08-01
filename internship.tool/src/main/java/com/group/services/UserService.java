@@ -21,7 +21,7 @@ public class UserService {
 
     public List<User> getAllStudents(boolean sorted) {
         List<User> users;
-        if(sorted) users = userRepository.findAllByOrderByUsernameAsc();
+        if(sorted) users = userRepository.findAllByOrderByNameAsc();
         else users = userRepository.findAll();
         return users;
     }
@@ -30,16 +30,15 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> getUsersByFields(Integer id, String username, String email, Role role, Integer teamId) {
-        // Create a specification to dynamically filter the users
+    public List<User> getUsersByFields(Integer id, String name, String email, Role role, Integer teamId) {
         Specification<User> spec = Specification.where(null);
 
         if(id != null) {
             spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("id"), id));
         }
 
-        if (username != null) {
-            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("username"), username));
+        if (name != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("name"), name));
         }
 
         if (email != null) {
@@ -66,7 +65,4 @@ public class UserService {
     public User getUserById(Integer userId) {
         return userRepository.findById(userId).orElseThrow(() -> new UserNotFound(HttpStatus.NOT_FOUND));
     }
-/*    public List<Integer> getUserGrades(Integer userId) {
-        return userRepository.findGradesById(userId);
-    }*/
 }

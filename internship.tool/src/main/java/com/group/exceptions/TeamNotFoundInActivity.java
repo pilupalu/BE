@@ -18,7 +18,7 @@ public class TeamNotFoundInActivity extends RuntimeException{
 
     public TeamNotFoundInActivity(HttpStatus httpStatus,Throwable cause)
     {
-        super("There is no team in this activity",cause);
+        super("There is no team enrolled",cause);
         this.httpStatus=httpStatus;
     }
 }

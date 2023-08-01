@@ -52,4 +52,13 @@ public class EnrollmentController {
         }
     }
 
+    @GetMapping("/teams")
+    public ResponseEntity<List<Activity>> getEnrolledActivitiesByTeamId(@RequestParam int teamId) {
+        try {
+            List<Activity> activities = enrollmentService.getEnrolledActivitiesByTeamId(teamId);
+            return ResponseEntity.ok(activities);
+        } catch (TeamNotFoundInActivity ex) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

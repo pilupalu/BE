@@ -50,7 +50,7 @@ public class UserService {
         }
 
         if (teamId != null) {
-            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("team").get("id"), teamId));
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("id_team").get("id"), teamId));
         }
 
         List<User> users = userRepository.findAll(spec);

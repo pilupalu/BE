@@ -1,5 +1,6 @@
 package com.group.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,11 +19,13 @@ public class Session {
     @Id
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_user", referencedColumnName = "id")
+    @JsonIgnoreProperties({"id_team","role","email","name"})
     private User user;
 
     @Id
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_activity", referencedColumnName = "id")
+    @JsonIgnoreProperties("name")
     private Activity activity;
 
     @Id

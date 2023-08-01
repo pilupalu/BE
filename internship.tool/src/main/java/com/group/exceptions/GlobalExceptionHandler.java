@@ -58,6 +58,17 @@ public class GlobalExceptionHandler {
         return ResponseEntity.ok().body(responseDto);
     }
 
+    @ExceptionHandler(InvalidTeamLeaderException.class)
+    public ResponseEntity<ExceptionResponseDto> handleInvalidTeamLeaderException(InvalidTeamLeaderException exception) {
+        ExceptionResponseDto responseDto = new ExceptionResponseDto(
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                exception.getMessage()
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
+    }
+
     @ExceptionHandler(UserAlreadyAssignedToTeamException.class)
     public ResponseEntity<ExceptionResponseDto> handleUserAlreadyAssignedToTeamException(UserAlreadyAssignedToTeamException exception) {
         ExceptionResponseDto responseDto = new ExceptionResponseDto(

@@ -44,4 +44,13 @@ public class TeamController {
     public List<Team> getAllTeams() {
         return  teamService.getAllTeams();
     }
+
+    @PutMapping("/{teamId}/leader")
+    public ResponseEntity<Team> updateTeamLeader(
+            @PathVariable int teamId,
+            @RequestParam(name = "newLeaderId") int newLeaderId
+    ) {
+        Team team = teamService.updateTeamLeader(teamId, newLeaderId);
+        return ResponseEntity.ok(team);
+    }
  }

@@ -63,7 +63,7 @@ public class SessionController {
 
         for (Enrollment enrollment : enrollments) {
             Team team = enrollment.getTeamId();
-            List<User> students = userService.getUsersByFields(null, null, null, null, team.getTeamID());
+            List<User> students = userService.getUsersByFields(null, null, null, null, team.getId_team());
 
             for (User student : students) {
                 Session session = new Session();

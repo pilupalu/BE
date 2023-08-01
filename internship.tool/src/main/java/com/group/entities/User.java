@@ -31,6 +31,6 @@ public class User {
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_team", referencedColumnName = "id")
-    @JsonIgnoreProperties("leader")
+    @JsonIgnoreProperties({"id_leader", "team_name"})
     private Team id_team;
 }

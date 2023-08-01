@@ -12,16 +12,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "Team", schema = "practice")
 public class Team {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int teamID;
-
-    @Column(name = "name")
-    private String teamName;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_leader", referencedColumnName = "id")
-    @JsonIgnoreProperties("team")
-    private User leader;
+    @JsonIgnoreProperties({"id_team","role","email","name"})
+    private User id_leader;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id_team;
+
+    @Column(name = "name")
+    private String team_name;
 }

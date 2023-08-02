@@ -22,6 +22,7 @@ public class ActivityController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value = "/all")
     public List<Activity> getAllActivity(){
         return activityService.getAllActivities();

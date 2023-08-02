@@ -41,6 +41,7 @@ public class TeamController {
         return ResponseEntity.ok(activities);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value = "/all")
     public List<Team> getAllTeams() {
         return  teamService.getAllTeams();

@@ -35,7 +35,9 @@ public class EnrollmentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
+
     @GetMapping(value = "/all")
+    @CrossOrigin(origins = "http://localhost:4200")
     public List<Enrollment> getAllEnrollments(){
         return enrollmentService.getAllEnrollments();
     }

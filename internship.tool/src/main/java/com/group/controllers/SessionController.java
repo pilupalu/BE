@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/sessions")
 public class SessionController {
@@ -47,14 +48,15 @@ public class SessionController {
         return ResponseEntity.ok(sessions);
     }
 
+
     @GetMapping(value = "/all")
     public List<Session> getAllSessions(){
         return sessionService.getAllSessions();
     }
 
     @PostMapping("/create-sessions")
-    public ResponseEntity<String> createSessionsForActivityAndDate(@RequestParam("activityId") int activityId,
-                                                                   @RequestParam("date") String date) {
+    public ResponseEntity<String> createSessionsForActivityAndDate(@RequestParam(value = "activityId", required = false) Integer activityId,
+                                                                   @RequestParam(value = "date", required = false) String date) {
         Activity activity = activityService.getActivityById(activityId);
         if (activity == null) {
             return new ResponseEntity<>("Activity not found", HttpStatus.NOT_FOUND);

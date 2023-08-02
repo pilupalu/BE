@@ -1,6 +1,7 @@
 package com.group.controllers;
 
 import com.group.entities.*;
+import com.group.exceptions.TeamNotFoundException;
 import com.group.services.EnrollmentService;
 import com.group.services.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +54,12 @@ public class TeamController {
         Team team = teamService.updateTeamLeader(teamId, newLeaderId);
         return ResponseEntity.ok(team);
     }
+
+    @GetMapping
+    public ResponseEntity<Team> getTeamById(@RequestParam int teamId) {
+            Team team = teamService.getTeamById(teamId);
+            return ResponseEntity.ok(team);
+
+    }
+
  }

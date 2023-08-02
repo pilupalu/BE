@@ -37,13 +37,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity.ok().body(responseDto);
     }
     @ExceptionHandler(TeamNotFoundException.class)
-    public ResponseEntity<ExceptionResponseDto> handleConflictTeamNotFoundException(TeamNotFoundException exception){
+    public ResponseEntity<ExceptionResponseDto> handleTeamNotFoundException(TeamNotFoundException exception) {
         ExceptionResponseDto responseDto = new ExceptionResponseDto(
                 exception.getHttpStatus().value(),
                 exception.getHttpStatus().getReasonPhrase(),
                 exception.getMessage()
         );
-        return ResponseEntity.ok().body(responseDto);
+        return ResponseEntity.status(exception.getHttpStatus()).body(responseDto);
     }
 
     @ExceptionHandler(TeamNotFoundInActivity.class)

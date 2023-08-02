@@ -3,7 +3,9 @@ package com.group.services;
 import com.group.entities.Activity;
 import com.group.entities.Enrollment;
 import com.group.entities.Team;
+import com.group.exceptions.TeamNotFoundException;
 import com.group.exceptions.TeamNotFoundInActivity;
+import com.group.repositories.ActivityRepository;
 import com.group.repositories.EnrollmentRepository;
 import com.group.repositories.TeamRepository;
 import org.springframework.http.HttpStatus;
@@ -17,10 +19,12 @@ import java.util.stream.Collectors;
 public class EnrollmentService {
     private final EnrollmentRepository enrollmentRepository;
     private final TeamRepository teamRepository;
+    private final ActivityRepository activityRepository;
 
-    public EnrollmentService(EnrollmentRepository enrollmentRepository, TeamRepository teamRepository) {
+    public EnrollmentService(EnrollmentRepository enrollmentRepository, TeamRepository teamRepository, ActivityRepository activityRepository) {
         this.enrollmentRepository = enrollmentRepository;
         this.teamRepository = teamRepository;
+        this.activityRepository = activityRepository;
     }
 
     public List<Enrollment> getAllEnrollments(){
@@ -61,18 +65,34 @@ public class EnrollmentService {
     }
 
     public List<Activity> getEnrolledActivitiesByTeamId(int teamId) {
-        // Fetch the team by team ID
+
         Team team = teamRepository.findById(teamId)
                 .orElseThrow(() -> new TeamNotFoundInActivity(HttpStatus.NOT_FOUND));
 
-        // Fetch the enrollments for the given team
         List<Enrollment> enrollments = enrollmentRepository.findByTeamId(team);
 
-        // Extract the activities from enrollments
-        List<Activity> activities = enrollments.stream()
+        return enrollments.stream()
                 .map(Enrollment::getId_activity)
                 .collect(Collectors.toList());
-
-        return activities;
     }
+
+
+    public List<Activity> getActivityTeamNotEnrolled(int teamId) {
+        Team team = teamRepository.findById(teamId)
+                .orElseThrow(() -> new TeamNotFoundException(HttpStatus.NOT_FOUND, "There is no team with this id"));
+
+
+
+        List<Enrollment> teamEnrollments = enrollmentRepository.findByTeamId(team);
+        List<Integer> enrolledActivityIds = teamEnrollments.stream()
+                .map(enrollment -> enrollment.getId_activity().getId())
+                .toList();
+
+        List<Activity> allActivities = activityRepository.findAll();
+
+        return allActivities.stream()
+                .filter(activity -> !enrolledActivityIds.contains(activity.getId()))
+                .toList();
+    }
+
 }

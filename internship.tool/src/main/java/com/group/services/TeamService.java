@@ -54,10 +54,13 @@ public class TeamService {
             throw new InvalidTeamLeaderException("The new leader must be a member of the same team.");
         }
 
-
-
         team.setId_leader(newLeader);
         return teamRepository.save(team);
+    }
+
+    public Team getTeamById (int id) {
+        Optional<Team> teamOptional =  teamRepository.findById(id);
+        return teamOptional.orElseThrow(() -> new TeamNotFoundException(HttpStatus.NOT_FOUND));
     }
 
 }
